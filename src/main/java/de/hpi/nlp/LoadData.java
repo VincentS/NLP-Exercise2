@@ -2,6 +2,9 @@ package de.hpi.nlp;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.TextDirectoryLoader;
+import weka.core.stemmers.LovinsStemmer;
+import weka.core.stemmers.SnowballStemmer;
+import weka.core.tokenizers.NGramTokenizer;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
@@ -36,6 +39,11 @@ public class LoadData {
     public Instances FilterData (Instances unfiltered_instance) {
 
         try {
+
+            LovinsStemmer lovins = new LovinsStemmer();
+            NGramTokenizer tok = new NGramTokenizer();
+
+
             StringToWordVector filter = new StringToWordVector();
             filter.setInputFormat(unfiltered_instance);
             Instances filtered_instance = Filter.useFilter(unfiltered_instance, filter);

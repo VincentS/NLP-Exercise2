@@ -1,13 +1,11 @@
 package de.hpi.nlp;
 
 
-import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
-import weka.classifiers.bayes.NaiveBayesMultinomial;
-import weka.classifiers.bayes.NaiveBayesUpdateable;
-import weka.core.Instances;
 import weka.classifiers.bayes.NaiveBayes;
-import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.classifiers.bayes.NaiveBayesMultinomial;
+import weka.classifiers.misc.InputMappedClassifier;
+import weka.core.Instances;
 
 public class Classification
 {
@@ -18,7 +16,8 @@ public class Classification
         Instances testdata = new LoadData("/test").getInstance();
 
         try {
-        Classifier classifier =  new NaiveBayesUpdateable();
+        InputMappedClassifier classifier =  new InputMappedClassifier();
+        classifier.setClassifier(new NaiveBayes());
 
         classifier.buildClassifier(trainingdata);
         Evaluation eval = new Evaluation(trainingdata);
